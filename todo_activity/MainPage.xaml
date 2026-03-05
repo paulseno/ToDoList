@@ -6,6 +6,12 @@
 
     <VerticalStackLayout Spacing="15" Padding="15">
 
+        <Label Text="To Do List App"
+               FontSize="24"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold"
+               TextColor="#333"/>
+        
         <Label Text="Add New Task"
                FontSize="20"
                HorizontalTextAlignment="Center"
@@ -24,14 +30,12 @@
                 
                 <Entry x:Name="TitleEntry"
                        Placeholder="Task Title"
-                       BackgroundColor="#F0F2F5"
                        TextColor="Black"
                        HeightRequest="45"
                        MaxLength="50"/>
 
                 <Editor x:Name="DetailsEditor"
                         Placeholder="Task Details"
-                        BackgroundColor="#F0F2F5"
                         TextColor="Black"
                         HeightRequest="100"
                         MaxLength="200"/>
