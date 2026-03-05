@@ -12,10 +12,12 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         todoLV.ItemsSource = todoItems;
+        UpdateEmptyState();
     }
 
     private void AddToDoItem(object sender, EventArgs e)
     {
+        
         var newTask = new ToDoClass
         {
             Id = todoItems.Count + 1,
@@ -23,6 +25,7 @@ public partial class MainPage : ContentPage
             Detail = DetailsEditor.Text
         };
         todoItems.Add(newTask);
+        UpdateEmptyState();
 
         TitleEntry.Text = "";
         DetailsEditor.Text = "";
@@ -49,6 +52,7 @@ public partial class MainPage : ContentPage
         AddBtn.IsVisible = true;
         EditBtn.IsVisible = false;
         CancelBtn.IsVisible = false;
+        
 
         TitleEntry.Text = "";
         DetailsEditor.Text = "";
@@ -62,6 +66,7 @@ public partial class MainPage : ContentPage
         if (itemToRemove != null)
         {
             todoItems.Remove(itemToRemove);
+            UpdateEmptyState();
         }
     }
 
@@ -77,5 +82,9 @@ public partial class MainPage : ContentPage
             EditBtn.IsVisible = true;
             CancelBtn.IsVisible = true;
         }
+    }
+    private void UpdateEmptyState()
+    {
+        EmptyLabel.IsVisible = todoItems.Count == 0;
     }
 }

@@ -1,44 +1,133 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="todo_activity.MainPage">
+             x:Class="todo_activity.MainPage"
+             BackgroundColor="#F5F7FA">
 
-    <VerticalStackLayout Spacing="10" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
-    <VerticalStackLayout Padding="10" Spacing="10" BackgroundColor="White" Margin="0,0,0,10">
-        <Entry x:Name="TitleEntry" Placeholder="Title" PlaceholderColor="Gray" TextColor="Black" Keyboard="Text" ReturnType="Next" MaxLength="50"/>  
-        <Editor x:Name="DetailsEditor" Placeholder="Details" PlaceholderColor="Gray" TextColor="Black" MaxLength="240" Keyboard="Text" HeightRequest="100"/>
-        <Button x:Name="AddBtn" IsVisible="True" Text="Add" TextColor="Black" BackgroundColor="LightBlue" Clicked="AddToDoItem"/> 
-        <Button x:Name="EditBtn" IsVisible="False" Text="Edit" TextColor="Black" BackgroundColor="lightgray" Clicked="EditToDoItem"/> 
-        <Button x:Name="CancelBtn" IsVisible="False" Text="Cancel Edit" TextColor="Black" BackgroundColor="LightCoral" Clicked="CancelEdit"/> 
-    </VerticalStackLayout>    
+    <VerticalStackLayout Spacing="15" Padding="15">
 
-    <ListView x:Name="todoLV" HorizontalOptions="Fill" VerticalOptions="FillAndExpand" HasUnevenRows="False"
-        SeparatorVisibility="Default" BackgroundColor="White"
-        ItemTapped="todoLV_ItemTapped">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <Grid VerticalOptions="FillAndExpand" RowSpacing="5" HorizontalOptions="FillAndExpand" Margin="10,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="8*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                                
-                        <Label Grid.Row="0" Grid.Column="0" LineBreakMode="TailTruncation" FontSize="16"
-                               Text="{Binding Title}" VerticalOptions="Center" HorizontalOptions="Start"/>
-                        <Label Grid.Row="1" Grid.Column="0" LineBreakMode="TailTruncation" FontSize="14"
-                               Text="{Binding Detail}" VerticalOptions="Center" HorizontalOptions="Start"/>
-                        <Button Text="Delete" BackgroundColor="LightCoral" ClassId="{Binding Id}" 
-                                Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Clicked="DeleteToDoItem"/>
-                    </Grid>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-</VerticalStackLayout>
+        <Label Text="Add New Task"
+               FontSize="20"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold"
+               TextColor="#333"/>
+        
+        <Border StrokeThickness="0"
+                BackgroundColor="White"
+                Padding="15">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20"/>
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="12">
+                
+                <Entry x:Name="TitleEntry"
+                       Placeholder="Task Title"
+                       BackgroundColor="#F0F2F5"
+                       TextColor="Black"
+                       HeightRequest="45"
+                       MaxLength="50"/>
+
+                <Editor x:Name="DetailsEditor"
+                        Placeholder="Task Details"
+                        BackgroundColor="#F0F2F5"
+                        TextColor="Black"
+                        HeightRequest="100"
+                        MaxLength="200"/>
+
+                <Button x:Name="AddBtn"
+                        Text="Add Task"
+                        CornerRadius="15"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"
+                        HorizontalOptions="Fill"
+                        Clicked="AddToDoItem"/>
+
+                <Button x:Name="EditBtn"
+                        IsVisible="False"
+                        Text="Save Changes"
+                        CornerRadius="15"
+                        BackgroundColor="#FFC107"
+                        TextColor="Black"
+                        HorizontalOptions="Fill"
+                        Clicked="EditToDoItem"/>
+
+                <Button x:Name="CancelBtn"
+                        IsVisible="False"
+                        Text="Cancel"
+                        CornerRadius="15"
+                        BackgroundColor="#F44336"
+                        TextColor="White"
+                        HorizontalOptions="Fill"
+                        Clicked="CancelEdit"/>
+
+            </VerticalStackLayout>
+
+        </Border>
+
+        <Label Text="Task List"
+               FontSize="20"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold"
+               TextColor="#333"/>
+        
+        <Label x:Name="EmptyLabel"
+               Text="List is currently empty!"
+               IsVisible="True"
+               FontSize="16"
+               HorizontalTextAlignment="Center"
+               FontAttributes="Bold"
+               TextColor="#333"/>
+        
+        <ListView x:Name="todoLV"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
+                  BackgroundColor="Transparent"
+                  ItemTapped="todoLV_ItemTapped">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Border Margin="0,5"
+                                Padding="12"
+                                BackgroundColor="White">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="15"/>
+                            </Border.StrokeShape>
+
+                            <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="Auto,Auto">
+
+                                <Label Text="{Binding Title}"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="#333"/>
+
+                                <Label Grid.Row="1"
+                                       Text="{Binding Detail}"
+                                       FontSize="14"
+                                       TextColor="#666"/>
+
+                                <Button Grid.Column="1"
+                                        Grid.RowSpan="2"
+                                        Text="🗑"
+                                        FontSize="18"
+                                        BackgroundColor="Transparent"
+                                        TextColor="#F44336"
+                                        ClassId="{Binding Id}"
+                                        Clicked="DeleteToDoItem"/>
+
+                            </Grid>
+
+                        </Border>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+    </VerticalStackLayout>
 
 </ContentPage>
